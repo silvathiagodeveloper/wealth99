@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: wealth99
+    container_name: wealth99
+    ports:
+      - "8000:80"
