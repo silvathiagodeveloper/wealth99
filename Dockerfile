@@ -13,4 +13,5 @@ EXPOSE 80
 
 # Copia e usa o script de entrada personalizado
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 CMD ["/entrypoint.sh"]
