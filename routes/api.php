@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/prices/latest', [CryptoPriceController::class, 'getLatestPrice']);
-Route::get('/prices/historical', [CryptoPriceController::class, 'getHistoricalPrice']);
+Route::prefix('prices')->group(function () {
+    Route::get('/latest', [CryptoPriceController::class, 'getLatestPrice']);
+    Route::get('/historical', [CryptoPriceController::class, 'getHistoricalPrice']);
+});
