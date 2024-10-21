@@ -1,8 +1,21 @@
 FROM php:7.4-apache
 
-RUN docker-php-ext-install pdo pdo_mysql
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    && docker-php-ext-install pdo pdo_mysql
 
-COPY . /var/www/html
+# Instalar o Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copiar o código da aplicação para o diretório do Apache
+COPY . /var/www/html/
+
+# Definir o diretório de trabalho
+WORKDIR /var/www/html
+
+# Instalar as dependências do Composer
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN a2enmod rewrite
